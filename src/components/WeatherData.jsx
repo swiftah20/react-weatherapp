@@ -1,6 +1,70 @@
 import React from 'react'
+import { Tooltip, Typography } from "@material-tailwind/react";
 
-const WeatherData = () => {
+import CloudyIcon from '../assets/icons/cloudy.png'
+import DrizzleIcon from '../assets/icons/drizzle.png'
+import FullCloudyIcon from '../assets/icons/full_cloudy.png'
+import MistIcon from '../assets/icons/mist.png'
+import SnowyIcon from '../assets/icons/snowy.png'
+import StormIcon from '../assets/icons/storm.png'
+import SunnyIcon from '../assets/icons/sunny.png'
+import RainIcon from '../assets/icons/rain.png'
+
+const WeatherData = ({icon, cityData, weather, windDegree}) => {
+    let weatherIcon;
+    icon.map((data) => {
+        const cuaca = data.main;
+        switch (cuaca) {
+            case "Thunderstorm":
+                weatherIcon = <img src={StormIcon} alt="Storm" className='h-40 w-40'></img>;
+                break;
+            case "Drizzle":
+                weatherIcon = <img src={DrizzleIcon} alt="Drizzle" className='h-40 w-40'></img>;
+                break;
+            case "Rain":
+                weatherIcon = <img src={RainIcon} alt="Rain" className='h-40 w-40'></img>;
+                break;
+            case "Clear":
+                weatherIcon = <img src={SunnyIcon} alt="Sunny" className='h-40 w-40'></img>;
+                break;
+            case "Mist":
+                weatherIcon = <img src={MistIcon} alt="Mist" className='h-40 w-40'></img>;
+                break;
+            case "Snow":
+                weatherIcon = <img src={SnowyIcon} alt="Snow" className='h-40 w-40'></img>;
+                break;
+            case "Clouds":
+                weatherIcon = <img src={FullCloudyIcon} alt="Clouds" className='h-40 w-40'></img>;
+                break;
+            default:
+                weatherIcon = <img src={CloudyIcon} alt="Sunny" className='h-40 w-40'></img>;
+        }
+    })
+
+    function getWindDirection(degrees) {
+        const direction = Math.floor((degrees + 22.5) / 45) % 8;
+        switch (direction) {
+            case 0:
+                return 'North';
+            case 1:
+                return 'North-East';
+            case 2:
+                return 'East';
+            case 3:
+                return 'South-East';
+            case 4:
+                return 'South';
+            case 5:
+                return 'South-West';
+            case 6:
+                return 'West';
+            case 7:
+                return 'North-West';
+            default:
+                return 'Unknown';
+        }
+    }
+
     return (
         <div className="flex">
             {
